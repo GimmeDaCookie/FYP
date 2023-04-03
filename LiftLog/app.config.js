@@ -24,8 +24,10 @@ export default {
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#FFFFFF",
+      },
+      "package": "com.lift_log.liftlog",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -36,7 +38,10 @@ export default {
       projectId: process.env.PROJECT_ID,
       storageBucket: process.env.STORAGE_BUCKET,
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
-      appId: process.env.APP_ID
+      appId: process.env.APP_ID,
+      eas: {
+        projectId: "01f8f553-9a64-4c21-8c6a-9696063446e6"
+      }
     }
   }
 }

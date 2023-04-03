@@ -12,8 +12,6 @@ import { Entypo } from "@expo/vector-icons";
 import colors from "../colors";
 import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { auth, database } from "../config/firebase";
-import { Picker } from "@react-native-picker/picker";
-// import RNPickerSelect from 'react-native-picker-select';
 import { LineChart } from "react-native-chart-kit";
 import styles from '../styleSheets/styles'
 import SelectDropdown from "react-native-select-dropdown";

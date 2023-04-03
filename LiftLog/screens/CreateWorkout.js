@@ -10,6 +10,7 @@ import {
   ScrollView,
   Alert,
   FlatList,
+  Dimensions,
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import colors from "../colors";
@@ -34,7 +35,7 @@ function CreateWorkout() {
       headerRight: () => (
         <TouchableOpacity
           onPress={() => navigation.navigate("Log")}
-          style={styles.calendarButton}
+          style={createWorkoutStyles.calendarButton}
         >
           <Entypo name="cog" size={24} color={colors.lightGray} />
         </TouchableOpacity>
@@ -110,23 +111,24 @@ function CreateWorkout() {
         userId: auth.currentUser.uid, // add user ID to workout document
       });
       console.log("Workout saved with ID: ", workoutRef.id);
+      navigation.navigate('Log');
     } catch (error) {
       console.error("Error saving workout: ", error);
     }
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.workoutTitle}>
+    <View style={createWorkoutStyles.container}>
+      <View style={createWorkoutStyles.workoutTitle}>
         <TextInput
-          style={styles.nameInput}
+          style={createWorkoutStyles.nameInput}
           placeholder="Workout Name"
           value={workoutName}
           onChangeText={handleNameChange}
         />
       </View>
       <FlatList
-        style={styles.workoutContainer}
+        style={createWorkoutStyles.workoutContainer}
         data={exercises}
         renderItem={({ item, index }) => (
           <View>
@@ -137,31 +139,36 @@ function CreateWorkout() {
               index={index}
               handleUpdate={updateExerciseState}
             />
-            <Button
-              title="Delete Exercise"
+            <TouchableOpacity
+              style={createWorkoutStyles.button}
               onPress={() => deleteExercise(index)}
-              style={styles.saveButton}
-            />
+            >
+              <Text style={createWorkoutStyles.buttonText}>
+                Delete Exercise
+              </Text>
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
         ListFooterComponent={
-          <View style={styles.addButtonContainer}>
-            <Button
-              title="Add Exercise"
+          <View style={createWorkoutStyles.addButtonContainer}>
+            <TouchableOpacity
+              style={createWorkoutStyles.button}
               onPress={addExercise}
-              style={styles.saveButton}
-            />
+            >
+              <Text style={createWorkoutStyles.buttonText}>Add Exercise</Text>
+            </TouchableOpacity>
           </View>
         }
       />
 
-      <View style={styles.saveButtonContainer}>
-        <Button
-          title="Save Workout"
+      <View style={createWorkoutStyles.saveButtonContainer}>
+        <TouchableOpacity
+          style={createWorkoutStyles.button}
           onPress={saveWorkout}
-          style={styles.saveButton}
-        />
+        >
+          <Text style={createWorkoutStyles.buttonText}>Save Workout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -169,12 +176,27 @@ function CreateWorkout() {
 
 export default CreateWorkout;
 
-const styles = StyleSheet.create({
+const createWorkoutStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
   inputContainer: {
     marginBottom: 10,
+  },
+  button: {
+    backgroundColor: colors.primary,
+    height: 58,
+    width: Dimensions.get("window").width - 32,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 5,
+    alignSelf: "center",
+  },
+  buttonText: {
+    fontWeight: "bold",
+    color: "#fff",
+    fontSize: 18,
   },
   saveButtonContainer: {
     justifyContent: "flex-end",

@@ -14,6 +14,7 @@ import React, {
     Button,
     ScrollView,
     Alert,
+    Dimensions,
   } from "react-native";
   import { useNavigation, useFocusEffect } from "@react-navigation/native";
   import colors from "../colors";
@@ -125,7 +126,7 @@ import React, {
           console.log('Completed exercise saved to Firestore!');
         }
     
-        navigation.navigate('Log');
+        navigation.navigate('History');
       } catch (error) {
         console.error('Error saving completed workout and exercises to Firestore: ', error);
       }
@@ -154,27 +155,32 @@ import React, {
                     index={index}
                     handleUpdate={updateExerciseState}
                   />
-                  <Button
-                    title="Delete Exercise"
-                    onPress={() => deleteExercise(index)}
-                    style={styles.saveButton}
-                  />
+                  <TouchableOpacity
+              style={styles.button}
+              onPress={() => deleteExercise(index)}
+            >
+              <Text style={styles.buttonText}>
+                Delete Exercise
+              </Text>
+            </TouchableOpacity>
                 </View>
               ))}
           <View style={styles.addButtonContainer}>
-            <Button
-              title="Add Exercise"
+          <TouchableOpacity
+              style={styles.button}
               onPress={addExercise}
-              style={styles.saveButton}
-            />
+            >
+              <Text style={styles.buttonText}>Add Exercise</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
         <View style={styles.saveButtonContainer}>
-          <Button
-            title="Edit Saved Workout"
-            onPress={editWorkout}
-            style={styles.saveButton}
-          />
+        <TouchableOpacity
+          style={styles.button}
+          onPress={editWorkout}
+        >
+          <Text style={styles.buttonText}>Save Edited Workout</Text>
+        </TouchableOpacity>
         </View>
       </View>
     );
@@ -188,6 +194,21 @@ import React, {
     },
     inputContainer: {
       marginBottom: 10,
+    },
+    button: {
+      backgroundColor: colors.primary,
+      height: 58,
+      width: Dimensions.get("window").width - 32,
+      borderRadius: 5,
+      justifyContent: "center",
+      alignItems: "center",
+      marginTop: 5,
+      alignSelf: "center",
+    },
+    buttonText: {
+      fontWeight: "bold",
+      color: "#fff",
+      fontSize: 18,
     },
     saveButtonContainer: {
       justifyContent: "flex-end",

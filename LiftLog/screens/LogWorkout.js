@@ -14,6 +14,7 @@ import {
   Button,
   ScrollView,
   Alert,
+  Dimensions,
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import colors from "../colors";
@@ -144,27 +145,32 @@ const LogWorkout = ({ route }) => {
                   index={index}
                   handleUpdate={updateExerciseState}
                 />
-                <Button
-                  title="Delete Exercise"
-                  onPress={() => deleteExercise(index)}
-                  style={styles.saveButton}
-                />
+                <TouchableOpacity
+              style={styles.button}
+              onPress={() => deleteExercise(index)}
+            >
+              <Text style={styles.buttonText}>
+                Delete Exercise
+              </Text>
+            </TouchableOpacity>
               </View>
             ))}
         <View style={styles.addButtonContainer}>
-          <Button
-            title="Add Exercise"
-            onPress={addExercise}
-            style={styles.saveButton}
-          />
+        <TouchableOpacity
+              style={styles.button}
+              onPress={addExercise}
+            >
+              <Text style={styles.buttonText}>Add Exercise</Text>
+            </TouchableOpacity>
         </View>
       </ScrollView>
       <View style={styles.saveButtonContainer}>
-        <Button
-          title="Log Workout"
+      <TouchableOpacity
+          style={styles.button}
           onPress={logWorkout}
-          style={styles.saveButton}
-        />
+        >
+          <Text style={styles.buttonText}>Log Workout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -185,6 +191,21 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginBottom: 20,
     marginTop: 20,
+  },
+  button: {
+    backgroundColor: colors.primary,
+    height: 58,
+    width: Dimensions.get("window").width - 32,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 5,
+    alignSelf: "center",
+  },
+  buttonText: {
+    fontWeight: "bold",
+    color: "#fff",
+    fontSize: 18,
   },
   addButtonContainer: {
     justifyContent: "flex-start",
